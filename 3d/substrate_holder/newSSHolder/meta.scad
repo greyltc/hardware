@@ -17,18 +17,22 @@ totalHeight=belowPBC+PCBThickness+solidHeight+crownHeight;
 module base ( xyDev ) {
     vDeviceDim=xyDev+deviceFudge;
     xyLen=vDeviceDim+wallT*2;
+    
+    chunk_width = 4;
+    chunk_outdent = 0.4;
+    chunk_height = 0.5;
+    chunk_angle = 75; 
+    
     difference(){
         cube([xyLen,xyLen,totalHeight],center = true);
         difference(){
             translate([0,0,belowPBC]) cube([vDeviceDim,vDeviceDim,totalHeight],center = true);
-            chunk_width = 4;
-            chunk_outdent = 0.4;
-            chunk_height = 0.5;
+            
             //these parts clip in the PCB
-            translate([vDeviceDim/2-chunk_outdent,-chunk_width/2,-totalHeight/2+belowPBC+PCBThickness]) cube([xyLen,chunk_width,chunk_height],center = false);
-            rotate([0,0,90]) translate([vDeviceDim/2-chunk_outdent,-chunk_width/2,-totalHeight/2+belowPBC+PCBThickness]) cube([xyLen,chunk_width,chunk_height],center = false);
-            rotate([0,0,180]) translate([vDeviceDim/2-chunk_outdent,-chunk_width/2,-totalHeight/2+belowPBC+PCBThickness]) cube([xyLen,chunk_width,chunk_height],center = false);
-            rotate([0,0,270]) translate([vDeviceDim/2-chunk_outdent,-chunk_width/2,-totalHeight/2+belowPBC+PCBThickness]) cube([xyLen,chunk_width,chunk_height],center = false);
+            rotate([0,0,0])   translate([vDeviceDim/2-chunk_outdent,-chunk_width/2,-totalHeight/2+belowPBC+PCBThickness]) {cube([wallT+chunk_outdent,chunk_width,chunk_height],center = false); translate([wallT+chunk_outdent,chunk_width,chunk_height]) rotate([0,0,180]) linear_extrude((wallT+chunk_outdent)*tan(chunk_angle), scale=[0,1]) square([wallT+chunk_outdent,chunk_width]);}
+            rotate([0,0,90])  translate([vDeviceDim/2-chunk_outdent,-chunk_width/2,-totalHeight/2+belowPBC+PCBThickness]) {cube([wallT+chunk_outdent,chunk_width,chunk_height],center = false); translate([wallT+chunk_outdent,chunk_width,chunk_height]) rotate([0,0,180]) linear_extrude((wallT+chunk_outdent)*tan(chunk_angle), scale=[0,1]) square([wallT+chunk_outdent,chunk_width]);}
+            rotate([0,0,180]) translate([vDeviceDim/2-chunk_outdent,-chunk_width/2,-totalHeight/2+belowPBC+PCBThickness]) {cube([wallT+chunk_outdent,chunk_width,chunk_height],center = false); translate([wallT+chunk_outdent,chunk_width,chunk_height]) rotate([0,0,180]) linear_extrude((wallT+chunk_outdent)*tan(chunk_angle), scale=[0,1]) square([wallT+chunk_outdent,chunk_width]);}
+            rotate([0,0,270]) translate([vDeviceDim/2-chunk_outdent,-chunk_width/2,-totalHeight/2+belowPBC+PCBThickness]) {cube([wallT+chunk_outdent,chunk_width,chunk_height],center = false); translate([wallT+chunk_outdent,chunk_width,chunk_height]) rotate([0,0,180]) linear_extrude((wallT+chunk_outdent)*tan(chunk_angle), scale=[0,1]) square([wallT+chunk_outdent,chunk_width]);}
             
         }
         cube([vDeviceDim-2*PCBShelfW,vDeviceDim-2*PCBShelfW,totalHeight+1],center = true);
@@ -46,3 +50,4 @@ module base ( xyDev ) {
         rotate([0,0,90]) translate([-xyLen*crownFraction/2,-xyLen/2,totalHeight/2-crownHeight]) rotate([0,90,0])  linear_extrude(height=xyLen*crownFraction) polygon([[0,0],[0,wallT],[(pinsHeight-pinRecepticalTop),wallT]]);
     }
 }
+base(30);

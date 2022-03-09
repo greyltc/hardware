@@ -13,4 +13,4 @@ module clip ( ) {
         translate([0,-clipThickness,0]) cube([innerClipLength,clipThickness+wallT,clipLength],center=true);
     }
 }
-clip ( );
+//clip ( );

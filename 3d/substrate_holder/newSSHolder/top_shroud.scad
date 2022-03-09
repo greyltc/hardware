@@ -2,8 +2,8 @@ include <meta.scad>;
 
 $fn = 25; // circles have this many segments
 
-deviceDim=28 - 0.146; //mm, x,y dimension of substrate, pcb, MRG
-//deviceDim=30; //mm, x,y dimension of substrate, pcb
+//deviceDim=28 - 0.146; //mm, x,y dimension of substrate, pcb, MRG
+deviceDim=30; //mm, x,y dimension of substrate, pcb
 //deviceDim=25; //mm, x,y dimension of substrate, pcb, DBG
 //deviceDim=25.146 - 0.146; //mm, x,y dimension of substrate, pcb, MIT, 
 
