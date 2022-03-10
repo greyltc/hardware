@@ -14,9 +14,9 @@ if (preview){
     translate([+(deviceDim+deviceFudge)/2+wallT,0,0]) rotate([0,-90,0]) clip();
     translate([-(deviceDim+deviceFudge)/2-wallT,0,0]) rotate([0, 90,0]) clip();
 
-    translate([0,0,totalHeight/2+capT-crownHeight+0.1]) rotate([180,0,0]) cap(deviceDim,springs=false);
+    translate([0,0,totalHeight/2-crownHeight+0.1]) rotate([0,0,0]) cap(deviceDim,springs=false);
 } else {  // for generating print shapes, uncomment as needed
-    base(deviceDim);
+    //base(deviceDim);
     //clip();
-    //cap(deviceDim,springs=false);
+    cap(deviceDim,springs=false);
 }

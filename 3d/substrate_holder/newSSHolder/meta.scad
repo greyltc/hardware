@@ -14,6 +14,10 @@ solidHeight=pinsHeight;//mm above pcb for solid wall
 crownHeight=maxSubstrateThickness+0.5;//mm, corners extension above pin ends
 totalHeight=belowPBC+PCBThickness+solidHeight+crownHeight;
 
+
+clip_slant_y = 3;
+clip_slant_z = 0.5;
+
 module base ( xyDev ) {
     vDeviceDim=xyDev+deviceFudge;
     xyLen=vDeviceDim+wallT*2;
@@ -48,6 +52,13 @@ module base ( xyDev ) {
         
         rotate([0,0,270]) translate([0,xyLen/2,totalHeight/2+(crownHeight+1)/2-crownHeight]) cube([xyLen*crownFraction,xyLen,crownHeight+1],center = true);
         rotate([0,0,90]) translate([-xyLen*crownFraction/2,-xyLen/2,totalHeight/2-crownHeight]) rotate([0,90,0])  linear_extrude(height=xyLen*crownFraction) polygon([[0,0],[0,wallT],[(pinsHeight-pinRecepticalTop),wallT]]);
+        
+        // bottom clip slants
+        rotate([0,0,0]) translate([-(xyLen*crownFraction)/2,xyLen/2,-totalHeight/2]) rotate([0,90,0]) linear_extrude(height=(xyLen*crownFraction)) polygon([[0,0],[0,-clip_slant_y],[-clip_slant_z,-clip_slant_y]]);
+        rotate([0,0,90]) translate([-(xyLen*crownFraction)/2,xyLen/2,-totalHeight/2]) rotate([0,90,0]) linear_extrude(height=(xyLen*crownFraction)) polygon([[0,0],[0,-clip_slant_y],[-clip_slant_z,-clip_slant_y]]);
+        rotate([0,0,180]) translate([-(xyLen*crownFraction)/2,xyLen/2,-totalHeight/2]) rotate([0,90,0]) linear_extrude(height=(xyLen*crownFraction)) polygon([[0,0],[0,-clip_slant_y],[-clip_slant_z,-clip_slant_y]]);
+        rotate([0,0,270]) translate([-(xyLen*crownFraction)/2,xyLen/2,-totalHeight/2]) rotate([0,90,0]) linear_extrude(height=(xyLen*crownFraction)) polygon([[0,0],[0,-clip_slant_y],[-clip_slant_z,-clip_slant_y]]);
+        
     }
 }
-base(30);
+//base(30);

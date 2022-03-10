@@ -26,7 +26,7 @@ module cap(deviceDim, springs=false, clips=false){
             }
         }
         
-        #linear_extrude(height=capT, scale=(capT*tan(danger_angle)*2+windowDim)/windowDim){
+        linear_extrude(height=capT, scale=(capT*tan(danger_angle)*2+windowDim)/windowDim){
             square([windowDim,windowDim], center=true);
         }
         if (springs){
@@ -36,6 +36,12 @@ module cap(deviceDim, springs=false, clips=false){
             translate ([cube_offset,-cube_offset,0]) cube([springs_length,springs_length,3*capT],center=true);
             translate ([-cube_offset,cube_offset,0]) cube([springs_length,springs_length,3*capT],center=true);
         }
+        
+        // clip slants
+        rotate([0,0,0]) translate([-(xyLen*crownFraction)/2,xyLen/2,capT]) rotate([0,90,0]) linear_extrude(height=(xyLen*crownFraction)) polygon([[0,0],[0,-clip_slant_y],[clip_slant_z,-clip_slant_y]]);
+        rotate([0,0,90]) translate([-(xyLen*crownFraction)/2,xyLen/2,capT]) rotate([0,90,0]) linear_extrude(height=(xyLen*crownFraction)) polygon([[0,0],[0,-clip_slant_y],[clip_slant_z,-clip_slant_y]]);
+        rotate([0,0,180]) translate([-(xyLen*crownFraction)/2,xyLen/2,capT]) rotate([0,90,0]) linear_extrude(height=(xyLen*crownFraction)) polygon([[0,0],[0,-clip_slant_y],[clip_slant_z,-clip_slant_y]]);
+        rotate([0,0,270]) translate([-(xyLen*crownFraction)/2,xyLen/2,capT]) rotate([0,90,0]) linear_extrude(height=(xyLen*crownFraction)) polygon([[0,0],[0,-clip_slant_y],[clip_slant_z,-clip_slant_y]]);
     }
 }
 
