@@ -16,7 +16,7 @@ if (preview){
 
     translate([0,0,totalHeight/2-crownHeight+0.1]) rotate([0,0,0]) cap(deviceDim,springs=false);
 } else {  // for generating print shapes, uncomment as needed
-    //base(deviceDim);
+    base(deviceDim);
     //clip();
-    cap(deviceDim,springs=false);
+    //cap(deviceDim,springs=false);
 }

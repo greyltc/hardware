@@ -40,15 +40,25 @@ module top_shroud(_deviceDim){
                 
         //component cutouts
         //translate([_deviceDim/2+(13*s+2*shroud_thickness)/2-(_deviceDim-(13*s+2*shroud_thickness))/2, 0,0]) cube([13*s+2*shroud_thickness,13*s+2*shroud_thickness,shroud_height], center=true);
+            
+        pin_locs = [
+            [ apo, s,0],  // top contact pin hole
+            [ apo,-s,0],  // top contact pin hole
+            [-apo, s,0],  // bottom contact pin hole
+            [-apo,-s,0],  // bottom contact pin hole
+            ];
     
-        
+        for (p = pin_locs){
+            translate(p) pin_cut();
+        }
+            
         // top contact pin holes
-        translate([apo,s,0]) pin_cut();
-        translate([apo,-s,0]) pin_cut();
+        //translate([apo,s,0]) pin_cut();
+        //translate([apo,-s,0]) pin_cut();
         
         // bottom contact pin holes
-        translate([-apo,s,0]) pin_cut();
-        translate([-apo,-s,0]) pin_cut();
+        //translate([-apo,s,0]) pin_cut();
+        //translate([-apo,-s,0]) pin_cut();
             
         // pixel 1 contact pin holes
         translate([-9,apo,0]){
