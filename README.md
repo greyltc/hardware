@@ -1,2 +1,2 @@
 # hardware
-Hardware disign files, for use with the [KiCAD EDA](http://kicad-pcb.org/)
+Hardware disign files, for use with the [KiCAD EDA](http://kicad.org/)
